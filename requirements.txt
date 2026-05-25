@@ -1,0 +1,7 @@
+qdrant-client
+requests
+pyyaml
+python-frontmatter
+python-dotenv
+fastapi
+pydantic

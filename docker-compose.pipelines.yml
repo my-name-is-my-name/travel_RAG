@@ -1,0 +1,21 @@
+services:
+  pipelines:
+    image: ghcr.io/open-webui/pipelines:main
+    ports:
+      - "9099:9099"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      - PIPELINES_REQUIREMENTS_PATH=/app/pipelines/requirements.txt
+      - QDRANT_URL=http://host.docker.internal:6333
+      - OLLAMA_URL=http://host.docker.internal:11434
+      - EMBEDDING_MODEL=bge-m3
+      - LLM_PROVIDER=${LLM_PROVIDER:-ollama}
+      - LLM_MODEL=${LLM_MODEL:-gemma3:4b}
+      - OPENAI_BASE_URL=${OPENAI_BASE_URL:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - COLLECTION=travel_notes
+      - TOP_K=8
+    volumes:
+      - ./pipelines:/app/pipelines
+    restart: unless-stopped
